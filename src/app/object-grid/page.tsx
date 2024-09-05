@@ -151,7 +151,7 @@ export default function ObjectGridPage() {
         </MenuItem>
       </Box>
       {/* Object Grid */}
-      <TableContainer component={Paper}>
+      <TableContainer sx={{ pb: 2 }} component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>

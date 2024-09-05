@@ -31,6 +31,7 @@ export default function RootLayout({
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'top',
+              paddingTop: '64px',
             }}
           >
             {children}
