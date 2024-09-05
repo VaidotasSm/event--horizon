@@ -16,10 +16,12 @@ import {
   Typography,
   tableCellClasses,
   styled,
+  TextField,
 } from '@mui/material';
 import * as React from 'react';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { Input } from 'postcss';
 
 function createData(id: number, type: string, objectName: string) {
   return {
@@ -117,15 +119,21 @@ export default function ObjectGridPage() {
     <main className="flex min-h-screen flex-col items-center py-24">
       {/* Filters */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Typography variant="h4">Filters</Typography>
-        <IconButton>
-          <Menu open={false} />
-        </IconButton>
-        <MenuItem>
-          <Typography variant="body1">Filter 1</Typography>
-        </MenuItem>
+        <TextField
+          size="small"
+          id="outlined-basic"
+          label="Search"
+          variant="filled"
+          sx={{ mr: 2 }}
+        />
         <MenuItem>
           <Typography variant="body1">Filter 2</Typography>
+        </MenuItem>
+        <MenuItem>
+          <Typography variant="body1">Filter 3</Typography>
+        </MenuItem>
+        <MenuItem>
+          <Typography variant="body1">Filter 4</Typography>
         </MenuItem>
       </Box>
       {/* Object Grid */}
