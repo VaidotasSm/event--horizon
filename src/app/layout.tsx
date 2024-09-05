@@ -25,7 +25,16 @@ export default function RootLayout({
             <Header />
           </Container>
 
-          <Container>{children}</Container>
+          <Container
+            sx={{
+              height: '100vh',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'top',
+            }}
+          >
+            {children}
+          </Container>
 
           <Container>
             <Typography variant="h1">FOOTER</Typography>
