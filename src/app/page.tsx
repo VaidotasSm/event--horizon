@@ -4,10 +4,13 @@ import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } fr
 import SearchIcon from '@mui/icons-material/Search';
 
 export default function Home() {
+  // Button click handler
   const handleClickSearch = () => {
-    console.log('search');
+    const inputElement = document.getElementById('search-bar') as HTMLInputElement;
+    console.log(inputElement.value);
   };
 
+  // Input change handler
   const handleSearchChnage = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
   };
