@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DbTracking } from '@/app/server/db';
-import { Container, Typography } from '@mui/material';
+import { Container, Link as MuiLink, Typography } from '@mui/material';
+import Link from 'next/link';
 import { EventsTable } from './EventsTable';
 
 export default async function ObjectPage(props: any) {
@@ -18,14 +19,22 @@ export default async function ObjectPage(props: any) {
         alignItems: 'center',
       }}
     >
-      <Typography variant="h2">Object Events</Typography>
-
       {invalidParams && (
         <Typography variant="h4" color="error">
           No ID or Type specified
         </Typography>
       )}
 
+      {!invalidParams && events.length === 0 && (
+        <>
+          <Typography variant="h4" color="warning">
+            Object has no events
+          </Typography>
+          <MuiLink component={Link} href={`/?id=${id}&type=${type}`}>
+            Back
+          </MuiLink>
+        </>
+      )}
       {!invalidParams && <EventsTable events={events} />}
     </Container>
   );

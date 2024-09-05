@@ -45,5 +45,8 @@
     "ci:check": "npm run format & npm run lint",
     "ci:full": "npm run ci:check & npm run build",
     "test": "jest"
+  },
+  "volta": {
+    "node": "20.17.0"
   }
 }
