@@ -6,6 +6,13 @@ export const TrackingEventDtoSchema = z.object({
   objectType: z.string(),
   eventName: z.string(),
   description: z.string().optional(),
+  objectChanges: z.any().optional(),
+  relatedObjects: z
+    .object({
+      id: z.string(),
+      objectType: z.string(),
+    })
+    .array(),
 });
 
 export type TrackingEventDto = z.infer<typeof TrackingEventDtoSchema>;

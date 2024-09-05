@@ -23,7 +23,6 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ message: 'Invalid request body - not a json' }, { status: 400 });
   }
-  console.log('~~~ body2', body);
 
   const { data, errors } = validateTrackingEventDto(body);
   if (!data) {

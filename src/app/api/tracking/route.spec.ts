@@ -37,6 +37,8 @@ describe('api - tracking', () => {
       eventName: 'event1',
       description: 'Test event 1',
       createdAt: '2024-09-05T12:00:00.000Z',
+      relatedObjects: [{ id: 'parent-1', objectType: 'type2' }],
+      objectChanges: { field1: 'edit1' },
     });
     await postEvent({
       id: '1',
@@ -44,6 +46,7 @@ describe('api - tracking', () => {
       eventName: 'event2',
       description: 'Test event 2',
       createdAt: '2024-09-05T12:01:00.000Z',
+      relatedObjects: [],
     });
 
     const res = await fetch('http://localhost:3000/api/tracking?id=1&type=type1');
@@ -56,6 +59,8 @@ describe('api - tracking', () => {
           eventName: 'event1',
           description: 'Test event 1',
           createdAt: '2024-09-05T12:00:00.000Z',
+          relatedObjects: [{ id: 'parent-1', objectType: 'type2' }],
+          objectChanges: { field1: 'edit1' },
         },
         {
           id: '1',
@@ -63,6 +68,7 @@ describe('api - tracking', () => {
           eventName: 'event2',
           description: 'Test event 2',
           createdAt: '2024-09-05T12:01:00.000Z',
+          relatedObjects: [],
         },
       ],
     });
@@ -81,5 +87,11 @@ async function postEvent(req: Partial<TrackingEventDto>): Promise<void> {
       ...req,
     }),
   });
-  expect(res.status).toBe(200);
+
+  await expectResponseMatch(res, { status: 200, body: { message: 'Created' } });
+}
+
+async function expectResponseMatch(res: Response, expected: { status: number; body?: any }) {
+  const body = await res.json();
+  expect({ status: res.status, body }).toMatchObject(expected);
 }
