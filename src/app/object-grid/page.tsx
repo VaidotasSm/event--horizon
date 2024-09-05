@@ -4,7 +4,6 @@ import {
   Box,
   Collapse,
   IconButton,
-  Menu,
   MenuItem,
   Paper,
   Table,
@@ -21,7 +20,6 @@ import {
 import * as React from 'react';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Input } from 'postcss';
 
 function createData(id: number, type: string, objectName: string) {
   return {
