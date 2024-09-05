@@ -62,3 +62,43 @@ function toTrackingEventDb(dto: TrackingEventDto): TrackingEventDb {
     relatedObjects: dto.relatedObjects,
   };
 }
+
+async function seedTestData() {
+  const events: TrackingEventDto[] = [
+    {
+      id: '1001',
+      objectType: 'transaction',
+      eventName: 'edit',
+      description: 'Edit of transaction',
+      createdAt: '2024-09-05T12:00:00.000Z',
+      relatedObjects: [{ id: 'parent-1', objectType: 'type2' }],
+      objectChanges: { amount: 10, approved: false },
+    },
+    {
+      id: '1001',
+      objectType: 'transaction',
+      eventName: 'edit',
+      description: 'Edit of transaction',
+      createdAt: '2024-09-05T12:10:00.000Z',
+      relatedObjects: [{ id: 'parent-1', objectType: 'type2' }],
+      objectChanges: { amount: 11, approved: false },
+    },
+    {
+      id: '1001',
+      objectType: 'transaction',
+      eventName: 'authorization',
+      description: 'Transaction Authorization',
+      createdAt: '2024-09-05T12:20:00.000Z',
+      relatedObjects: [{ id: 'parent-1', objectType: 'type2' }],
+      objectChanges: { approved: true },
+    },
+  ];
+
+  for (const e of events) {
+    await DbTracking.putEntity(e);
+  }
+}
+
+(async () => {
+  await seedTestData();
+})();
