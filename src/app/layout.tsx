@@ -35,10 +35,6 @@ export default function RootLayout({
           >
             {children}
           </Container>
-
-          <Container>
-            <Typography variant="h1">FOOTER</Typography>
-          </Container>
         </AppRouterCacheProvider>
       </body>
     </html>
