@@ -3,6 +3,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Container, Typography } from '@mui/material';
+import Header from './header';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,8 +21,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AppRouterCacheProvider>
-          <Container>
-            <Typography variant="h1">HEADER</Typography>
+          <Container maxWidth={false} disableGutters>
+            <Header />
           </Container>
 
           <Container>{children}</Container>
