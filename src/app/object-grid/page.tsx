@@ -117,7 +117,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export default function ObjectGridPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center py-24">
+    <>
       {/* Filters */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <TextField
@@ -151,7 +151,7 @@ export default function ObjectGridPage() {
         </MenuItem>
       </Box>
       {/* Object Grid */}
-      <TableContainer component={Paper}>
+      <TableContainer sx={{ pb: 2 }} component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -170,6 +170,6 @@ export default function ObjectGridPage() {
           </TableBody>
         </Table>
       </TableContainer>
-    </main>
+    </>
   );
 }

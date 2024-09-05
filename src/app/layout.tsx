@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import Header from './header';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -25,10 +25,16 @@ export default function RootLayout({
             <Header />
           </Container>
 
-          <Container>{children}</Container>
-
-          <Container>
-            <Typography variant="h1">FOOTER</Typography>
+          <Container
+            sx={{
+              height: '100vh',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'top',
+              paddingTop: '64px',
+            }}
+          >
+            {children}
           </Container>
         </AppRouterCacheProvider>
       </body>

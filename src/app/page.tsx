@@ -16,8 +16,8 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between py-24">
-      <FormControl sx={{ m: 1, width: '100%' }} variant="outlined">
+    <>
+      <FormControl sx={{ m: 1, mt: 5, width: '100%' }} variant="outlined">
         <InputLabel htmlFor="search-bar">Search</InputLabel>
         <OutlinedInput
           id="search-bar"
@@ -33,6 +33,6 @@ export default function Home() {
           label="Search"
         />
       </FormControl>
-    </main>
+    </>
   );
 }
