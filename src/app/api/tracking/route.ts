@@ -1,5 +1,5 @@
 import { DbTracking } from '@/app/server/db';
-import { TrackingEventDto } from '@/app/server/dto';
+import { TrackingEventDto, validateTrackingEventDto } from '@/app/server/dto';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
@@ -16,21 +16,25 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ events });
 }
 
-export async function POST(request: NextRequest) {
-  const body = await request.json();
-  if (!validateEventReq(body)) {
-    return NextResponse.json({ message: 'incorrect request body' }, { status: 400 });
+export async function POST(req: NextRequest) {
+  let body: TrackingEventDto | unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ message: 'Invalid request body - not a json' }, { status: 400 });
+  }
+  console.log('~~~ body2', body);
+
+  const { data, errors } = validateTrackingEventDto(body);
+  if (!data) {
+    return NextResponse.json({ message: 'Invalid request body', errors: errors }, { status: 400 });
   }
 
-  await DbTracking.putEntity(body);
+  await DbTracking.putEntity(data);
   return NextResponse.json({ message: 'Created' });
 }
 
 export async function DELETE() {
   await DbTracking.resetDb();
   return NextResponse.json({ message: 'DB Reset' });
-}
-
-function validateEventReq(body: object): body is TrackingEventDto {
-  return true;
 }
