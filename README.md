@@ -11,7 +11,7 @@ Prerequisites:
 Local Development:
 * `npm install` - install dependencies
 * `npm run ci:check` - run quality checks - format, lint
-* `npm run ci` - run full CI check - format, lint, build
+* `npm run ci:full` - run full CI check - format, lint, build
 * `npm run dev` - run on http://localhost:3000
 
 
