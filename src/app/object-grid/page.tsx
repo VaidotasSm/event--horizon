@@ -16,6 +16,9 @@ import {
   tableCellClasses,
   styled,
   TextField,
+  Select,
+  FormControl,
+  InputLabel,
 } from '@mui/material';
 import * as React from 'react';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -121,12 +124,25 @@ export default function ObjectGridPage() {
           size="small"
           id="outlined-basic"
           label="Search"
-          variant="filled"
+          variant="outlined"
           sx={{ mr: 2 }}
         />
-        <MenuItem>
-          <Typography variant="body1">Filter 2</Typography>
-        </MenuItem>
+        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+          <InputLabel id="demo-select-small-label">Type</InputLabel>
+          <Select
+            labelId="demo-select-small-label"
+            id="demo-select-small"
+            value={''}
+            label="Type"
+            // onChange={handleChange}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={'user'}>User</MenuItem>
+            <MenuItem value={'transaction'}>Transaction</MenuItem>
+          </Select>
+        </FormControl>
         <MenuItem>
           <Typography variant="body1">Filter 3</Typography>
         </MenuItem>
