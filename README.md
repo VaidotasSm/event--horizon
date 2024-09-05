@@ -17,3 +17,8 @@ Local Development:
 
 Docker Development:
 * TODO
+
+
+# Testing
+* http://localhost:3000/tracker/object?id=1001&type=transaction - seed object events (Transaction)
+
