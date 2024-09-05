@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TrackingEventDto } from './dto';
 
 /* DB mock */
@@ -11,6 +12,11 @@ export interface TrackingEventDb {
   createdAt: string;
   event: string;
   description?: string;
+  objectChanges?: any;
+  relatedObjects?: {
+    id: string;
+    objectType: string;
+  }[];
 }
 
 export const DbTracking = {
@@ -42,6 +48,8 @@ function toDbTrackingEventDto(id: string, type: string, entity: TrackingEventDb)
     createdAt: entity.createdAt,
     eventName: entity.event,
     description: entity.description,
+    objectChanges: entity.objectChanges,
+    relatedObjects: entity.relatedObjects || [],
   };
 }
 
@@ -50,5 +58,7 @@ function toTrackingEventDb(dto: TrackingEventDto): TrackingEventDb {
     createdAt: dto.createdAt,
     event: dto.eventName,
     description: dto.description,
+    objectChanges: dto.objectChanges,
+    relatedObjects: dto.relatedObjects,
   };
 }
