@@ -67,8 +67,8 @@ async function seedTestData() {
   const events: TrackingEventDto[] = [
     {
       id: '1001',
-      objectType: 'transaction',
-      eventName: 'create',
+      objectType: 'Transaction',
+      eventName: 'Create',
       description: 'Create transaction',
       createdAt: '2024-09-05T12:00:00.000Z',
       relatedObjects: [
@@ -79,8 +79,8 @@ async function seedTestData() {
     },
     {
       id: '1001',
-      objectType: 'transaction',
-      eventName: 'edit',
+      objectType: 'Transaction',
+      eventName: 'Edit',
       description: 'Edit of transaction',
       createdAt: '2024-09-05T12:10:00.000Z',
       relatedObjects: [
@@ -91,8 +91,8 @@ async function seedTestData() {
     },
     {
       id: '1001',
-      objectType: 'transaction',
-      eventName: 'edit',
+      objectType: 'Transaction',
+      eventName: 'Edit',
       description: 'Edit of transaction',
       createdAt: '2024-09-05T12:14:00.000Z',
       relatedObjects: [{ id: 'Product #4', objectType: 'Product' }],
@@ -100,17 +100,17 @@ async function seedTestData() {
     },
     {
       id: '1001',
-      objectType: 'transaction',
-      eventName: 'authorization',
-      description: 'Transaction Authorization',
+      objectType: 'Transaction',
+      eventName: 'Authorization',
+      description: 'Transaction authorization',
       createdAt: '2024-09-05T12:20:00.000Z',
       relatedObjects: [{ id: 'User-approver 1', objectType: 'User' }],
       objectChanges: { approved: true },
     },
     {
       id: '1001',
-      objectType: 'transaction',
-      eventName: 'batch-close',
+      objectType: 'Transaction',
+      eventName: 'Batch-close',
       description: 'Close Batch',
       createdAt: '2024-09-05T12:30:00.000Z',
       relatedObjects: [{ id: 'Batch #1', objectType: 'Batch' }],
