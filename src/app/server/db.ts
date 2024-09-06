@@ -68,11 +68,11 @@ async function seedTestData() {
     {
       id: '1001',
       objectType: 'transaction',
-      eventName: 'edit',
-      description: 'Edit of transaction',
+      eventName: 'create',
+      description: 'Create transaction',
       createdAt: '2024-09-05T12:00:00.000Z',
-      relatedObjects: [{ id: 'parent-1', objectType: 'type2' }],
-      objectChanges: { amount: 10, approved: false },
+      relatedObjects: [{ id: 'item-1', objectType: 'item' }],
+      objectChanges: { amount: 5, items: 1, approved: false },
     },
     {
       id: '1001',
@@ -80,8 +80,20 @@ async function seedTestData() {
       eventName: 'edit',
       description: 'Edit of transaction',
       createdAt: '2024-09-05T12:10:00.000Z',
-      relatedObjects: [{ id: 'parent-1', objectType: 'type2' }],
-      objectChanges: { amount: 11, approved: false },
+      relatedObjects: [
+        { id: 'item-2', objectType: 'item' },
+        { id: 'item-3', objectType: 'item' },
+      ],
+      objectChanges: { amount: 15, items: 3, approved: false },
+    },
+    {
+      id: '1001',
+      objectType: 'transaction',
+      eventName: 'edit',
+      description: 'Edit of transaction',
+      createdAt: '2024-09-05T12:14:00.000Z',
+      relatedObjects: [{ id: 'item-4', objectType: 'item' }],
+      objectChanges: { amount: 20, items: 4, approved: false },
     },
     {
       id: '1001',
@@ -89,8 +101,17 @@ async function seedTestData() {
       eventName: 'authorization',
       description: 'Transaction Authorization',
       createdAt: '2024-09-05T12:20:00.000Z',
-      relatedObjects: [{ id: 'parent-1', objectType: 'type2' }],
+      relatedObjects: [{ id: 'user-approver-1', objectType: 'user' }],
       objectChanges: { approved: true },
+    },
+    {
+      id: '1001',
+      objectType: 'transaction',
+      eventName: 'batch-close',
+      description: 'Transaction Authorization',
+      createdAt: '2024-09-05T12:30:00.000Z',
+      relatedObjects: [{ id: 'batch-1', objectType: 'batch' }],
+      objectChanges: { settled: true },
     },
   ];
 
