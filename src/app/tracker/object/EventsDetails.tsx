@@ -62,7 +62,7 @@ export const EventDetails: React.FC<{ event: TrackingEventDto }> = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {Object.entries(event.objectChanges).map(([field, value]) => (
+          {event.objectChanges && Object.entries(event.objectChanges).map(([field, value]) => (
             <TableRow key={field}>
               <TableCell>{field}</TableCell>
               <TableCell>{`${value}`}</TableCell>
