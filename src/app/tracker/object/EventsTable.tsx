@@ -2,7 +2,6 @@
 
 import { TrackingEventDto } from '@/app/server/dto';
 import {
-  Box,
   Collapse,
   IconButton,
   Paper,
@@ -14,95 +13,68 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from '@mui/material';
-import React from 'react';
-import { EventDetails } from './EventsDetails';
+import React, { useState } from 'react';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { EventDetails } from '@/app/tracker/object/EventsDetails';
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+}));
 
 export const EventsTable: React.FC<{ events: TrackingEventDto[] }> = (props) => {
-  const [open, setOpen] = React.useState(false);
-
-  if (props.events.length === 0) {
-    return (
-      <Typography variant="h4" color="warning">
-        Object has no events
-      </Typography>
-    );
-  }
-
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-  }));
-
   return (
     <TableContainer sx={{ pb: 2 }} component={Paper}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             <StyledTableCell />
-            <StyledTableCell align="left">ID</StyledTableCell>
-            <StyledTableCell align="left">Type</StyledTableCell>
-            <StyledTableCell align="left">Object name</StyledTableCell>
-            <StyledTableCell align="center">Last Change</StyledTableCell>
-            <StyledTableCell align="right">Last Changed</StyledTableCell>
+            <StyledTableCell align="center">Event</StyledTableCell>
+            <StyledTableCell align="right">Description</StyledTableCell>
+            <StyledTableCell align="right">Date</StyledTableCell>
           </TableRow>
         </TableHead>
+
         <TableBody>
-          <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-            <TableCell>
-              <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-              </IconButton>
-            </TableCell>
-            <TableCell align="left" component="th" scope="row">
-              {props.events[0].id}
-            </TableCell>
-            <TableCell align="left">{props.events[0].objectType}</TableCell>
-            <TableCell align="left">{props.events[0].eventName}</TableCell>
-            <TableCell align="center">{props.events[0].objectChanges.amount}</TableCell>
-            <TableCell align="right">{props.events[0].createdAt}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-              <Collapse in={open} timeout="auto" unmountOnExit>
-                <Box sx={{ margin: 1 }}>
-                  <Typography variant="h6" gutterBottom component="div">
-                    History
-                  </Typography>
-                  <Table size="small" aria-label="purchases">
-                    <TableHead>
-                      <TableRow>
-                        <StyledTableCell>Name</StyledTableCell>
-                        <StyledTableCell>Change</StyledTableCell>
-                        <StyledTableCell>Change date</StyledTableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {props.events.map((row) => (
-                        <EventDetails key={row.id} event={row} />
-                      ))}
-                    </TableBody>
-                  </Table>
-                </Box>
-                {/* <EventDetails event={row} /> */}
-              </Collapse>
-            </TableCell>
-          </TableRow>
+          {props.events.map((event) => (
+            <TableRowEvent key={`${event.createdAt}-${event.eventName}`} event={event} />
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
-
-    // <ul>
-    //   {props.events.map((e) => (
-    //     <li key={e.createdAt}>
-    //       <EventDetails event={e} />
-    //     </li>
-    //   ))}
-    // </ul>
   );
 };
+
+function TableRowEvent(props: { event: TrackingEventDto }) {
+  const event = props.event;
+  const [showEventDetails, setShowEventDetails] = useState(false);
+  const handleEventRowClick = () => setShowEventDetails((isShown) => !isShown);
+
+  return (
+    <>
+      <TableRow>
+        <TableCell>
+          <IconButton aria-label="expand row" size="small" onClick={handleEventRowClick}>
+            {showEventDetails ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+        <TableCell align="center">{event.eventName}</TableCell>
+        <TableCell align="right" component="th" scope="row">
+          {event.description}
+        </TableCell>
+        <TableCell align="right">{event.createdAt}</TableCell>
+      </TableRow>
+      {showEventDetails && (
+        <TableRow>
+          <Collapse in={showEventDetails} timeout="auto" unmountOnExit>
+            <EventDetails event={event} />
+          </Collapse>
+        </TableRow>
+      )}
+    </>
+  );
+}
