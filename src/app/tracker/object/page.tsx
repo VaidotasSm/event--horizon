@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DbTracking } from '@/app/server/db';
-import { Container, Link as MuiLink, Typography } from '@mui/material';
+import { Box, Container, Link as MuiLink, Typography } from '@mui/material';
 import Link from 'next/link';
 import { EventsTable } from './EventsTable';
 
@@ -35,7 +35,22 @@ export default async function ObjectPage(props: any) {
           </MuiLink>
         </>
       )}
-      {!invalidParams && <EventsTable events={events} />}
+      {!invalidParams && (
+        <Box
+          sx={{
+            width: '80vw',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Typography>ID - {id}</Typography>
+          <Typography>Type - {type}</Typography>
+
+          <EventsTable events={events} />
+        </Box>
+      )}
     </Container>
   );
 }

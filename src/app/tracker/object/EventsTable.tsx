@@ -3,8 +3,13 @@
 import { TrackingEventDto } from '@/app/server/dto';
 import {
   Collapse,
+  FormControl,
   IconButton,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
+  SelectChangeEvent,
   styled,
   Table,
   TableBody,
@@ -14,10 +19,15 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { EventDetails } from '@/app/tracker/object/EventsDetails';
+
+interface RelatedObject {
+  id: string;
+  objectType: string;
+}
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -27,8 +37,44 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export const EventsTable: React.FC<{ events: TrackingEventDto[] }> = (props) => {
+  const relatedObjects: RelatedObject[] = props.events.flatMap((e) => e.relatedObjects);
+  const [filterRelatedObjIndex, setFilterRelatedObjIndex] = useState<number>(-1);
+  const handleFilterRelatedObjIndexChange = (e: SelectChangeEvent) => {
+    const value = parseInt(e.target.value);
+    if (!isNaN(value)) {
+      setFilterRelatedObjIndex(value);
+    }
+  };
+
+  const filterRelatedObj = relatedObjects[filterRelatedObjIndex];
+  const events = useMemo(
+    () =>
+      filterRelatedObj
+        ? props.events.filter((e) => e.relatedObjects.includes(filterRelatedObj))
+        : props.events,
+    [props.events, filterRelatedObj],
+  );
+
+  // const handle;
   return (
     <TableContainer sx={{ pb: 2, mt: 2 }} component={Paper}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Related Objects</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          label="Related Objects"
+          value={`${filterRelatedObjIndex}`}
+          onChange={handleFilterRelatedObjIndexChange}
+        >
+          <MenuItem value={-1}></MenuItem>
+          {relatedObjects.map((relatedObj, i) => (
+            <MenuItem key={`${relatedObj.id}-${i}`} value={i}>
+              {relatedObj.id} ({relatedObj.objectType})
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -40,7 +86,7 @@ export const EventsTable: React.FC<{ events: TrackingEventDto[] }> = (props) => 
         </TableHead>
 
         <TableBody>
-          {props.events.map((event) => (
+          {events.map((event) => (
             <TableRowEvent key={`${event.createdAt}-${event.eventName}`} event={event} />
           ))}
         </TableBody>
