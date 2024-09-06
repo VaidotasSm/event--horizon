@@ -71,9 +71,9 @@ async function seedTestData() {
       eventName: 'create',
       description: 'Create transaction',
       createdAt: '2024-09-05T12:00:00.000Z',
-      relatedObjects: [{id: '1444', objectType: 'Order Number' },
-                       {id: 'Product #1', objectType: 'Order Item' }
-
+      relatedObjects: [
+        { id: '1444', objectType: 'Order' },
+        { id: 'Product #1', objectType: 'Product' },
       ],
       objectChanges: { Amount: 5, Items: 1, Approved: false },
     },
@@ -84,8 +84,8 @@ async function seedTestData() {
       description: 'Edit of transaction',
       createdAt: '2024-09-05T12:10:00.000Z',
       relatedObjects: [
-        { id: 'Product #2', objectType: 'Order Item' },
-        { id: 'Product #3', objectType: 'Order Item' },
+        { id: 'Product #2', objectType: 'Product' },
+        { id: 'Product #3', objectType: 'Product' },
       ],
       objectChanges: { Amount: 15, Items: 3, Approved: false },
     },
@@ -95,7 +95,7 @@ async function seedTestData() {
       eventName: 'edit',
       description: 'Edit of transaction',
       createdAt: '2024-09-05T12:14:00.000Z',
-      relatedObjects: [{ id: 'Product #4', objectType: 'item' }],
+      relatedObjects: [{ id: 'Product #4', objectType: 'Product' }],
       objectChanges: { Amount: 20, items: 4, approved: false },
     },
     {
@@ -104,7 +104,7 @@ async function seedTestData() {
       eventName: 'authorization',
       description: 'Transaction Authorization',
       createdAt: '2024-09-05T12:20:00.000Z',
-      relatedObjects: [{ id: 'User-approver 1', objectType: 'user' }],
+      relatedObjects: [{ id: 'User-approver 1', objectType: 'User' }],
       objectChanges: { approved: true },
     },
     {
