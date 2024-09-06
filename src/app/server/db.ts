@@ -108,7 +108,7 @@ async function seedTestData() {
       id: '1001',
       objectType: 'transaction',
       eventName: 'batch-close',
-      description: 'Transaction Authorization',
+      description: 'Close Batch',
       createdAt: '2024-09-05T12:30:00.000Z',
       relatedObjects: [{ id: 'batch-1', objectType: 'batch' }],
       objectChanges: { settled: true },
