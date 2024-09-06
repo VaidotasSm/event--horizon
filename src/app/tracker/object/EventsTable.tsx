@@ -28,7 +28,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export const EventsTable: React.FC<{ events: TrackingEventDto[] }> = (props) => {
   return (
-    <TableContainer sx={{ pb: 2 }} component={Paper}>
+    <TableContainer sx={{ pb: 2, mt: 2 }} component={Paper}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -69,10 +69,18 @@ function TableRowEvent(props: { event: TrackingEventDto }) {
         <TableCell align="right">{event.createdAt}</TableCell>
       </TableRow>
       {showEventDetails && (
-        <TableRow>
-          <Collapse in={showEventDetails} timeout="auto" unmountOnExit>
-            <EventDetails event={event} />
-          </Collapse>
+        <TableRow sx={{ backgroundColor: 'grey.200' }}>
+          <TableCell
+            style={{
+              paddingBottom: 0,
+              paddingTop: 0,
+            }}
+            colSpan={4}
+          >
+            <Collapse in={showEventDetails} timeout="auto" unmountOnExit>
+              <EventDetails event={event} />
+            </Collapse>
+          </TableCell>
         </TableRow>
       )}
     </>

@@ -1,37 +1,44 @@
 'use client';
 
 import { TrackingEventDto } from '@/app/server/dto';
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
+import {
+  Box,
+  styled,
+  Table,
+  TableBody,
+  TableCell,
+  tableCellClasses,
+  TableHead,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import React from 'react';
 
 export const EventDetails: React.FC<{ event: TrackingEventDto }> = (props) => {
   const { event } = props;
+
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+  }));
 
   return (
     <Box
       className="event-details"
       sx={{
         margin: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
       }}
     >
-      <Table>
+      <Typography variant="h6" gutterBottom component="div">
+        Related Objects
+      </Typography>
+      <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell colSpan={2}>
-              <Typography>Related Objects</Typography>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>
-              <Typography>Object ID</Typography>
-            </TableCell>
-            <TableCell>
-              <Typography>Object Type</Typography>
-            </TableCell>
+            <StyledTableCell>Object ID</StyledTableCell>
+            <StyledTableCell>Object Type</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -44,20 +51,14 @@ export const EventDetails: React.FC<{ event: TrackingEventDto }> = (props) => {
         </TableBody>
       </Table>
 
-      <Table>
+      <Typography sx={{ mt: 2 }} variant="h6" gutterBottom component="div">
+        Updated Fields
+      </Typography>
+      <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell colSpan={2}>
-              <Typography>Updated Fields</Typography>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>
-              <Typography>Field</Typography>
-            </TableCell>
-            <TableCell>
-              <Typography>New Value</Typography>
-            </TableCell>
+            <StyledTableCell>Field</StyledTableCell>
+            <StyledTableCell>New Value</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
