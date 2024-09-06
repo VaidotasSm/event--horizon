@@ -26,14 +26,17 @@ export const DbTracking = {
   },
 
   async putEntity(event: TrackingEventDto): Promise<void> {
-    if (!DB.trackingEvents[event.objectType]) {
-      DB.trackingEvents[event.objectType] = {};
+    const type = event.objectType.toLowerCase();
+    const id = event.id.toLowerCase();
+
+    if (!DB.trackingEvents[type]) {
+      DB.trackingEvents[type] = {};
     }
-    if (!DB.trackingEvents[event.objectType][event.id]) {
-      DB.trackingEvents[event.objectType][event.id] = [];
+    if (!DB.trackingEvents[type][id]) {
+      DB.trackingEvents[type][id] = [];
     }
 
-    DB.trackingEvents[event.objectType][event.id].push(toTrackingEventDb(event));
+    DB.trackingEvents[type][id].push(toTrackingEventDb(event));
   },
 
   async resetDb() {
