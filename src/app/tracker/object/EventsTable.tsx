@@ -23,6 +23,7 @@ import React, { useMemo, useState } from 'react';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { EventDetails } from '@/app/tracker/object/EventsDetails';
+import moment from 'moment';
 
 interface RelatedObject {
   id: string;
@@ -115,7 +116,7 @@ function TableRowEvent(props: { event: TrackingEventDto }) {
         <TableCell align="right" component="th" scope="row">
           {event.description}
         </TableCell>
-        <TableCell align="right">{event.createdAt}</TableCell>
+        <TableCell align="right">{moment(event.createdAt).fromNow()}</TableCell>
       </TableRow>
       {showEventDetails && (
         <TableRow sx={{ backgroundColor: 'grey.200' }}>
