@@ -23,6 +23,7 @@ import React, { useMemo, useState } from 'react';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { EventDetails } from '@/app/tracker/object/EventsDetails';
+import moment from 'moment';
 
 interface RelatedObject {
   id: string;
@@ -57,16 +58,18 @@ export const EventsTable: React.FC<{ events: TrackingEventDto[] }> = (props) => 
 
   // const handle;
   return (
-    <TableContainer sx={{ pb: 2, mt: 2 }} component={Paper}>
+    <>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Related Objects</InputLabel>
+        <InputLabel id="related-objects">Related Objects</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
+          labelId="related-objects"
           label="Related Objects"
           value={`${filterRelatedObjIndex}`}
           onChange={handleFilterRelatedObjIndexChange}
         >
-          <MenuItem value={-1}></MenuItem>
+          <MenuItem value={-1}>
+            <em>All</em>
+          </MenuItem>
           {relatedObjects.map((relatedObj, i) => (
             <MenuItem key={`${relatedObj.id}-${i}`} value={i}>
               {relatedObj.id} ({relatedObj.objectType})
@@ -74,24 +77,25 @@ export const EventsTable: React.FC<{ events: TrackingEventDto[] }> = (props) => 
           ))}
         </Select>
       </FormControl>
+      <TableContainer sx={{ pb: 2, mt: 2 }} component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell />
+              <StyledTableCell align="center">Event</StyledTableCell>
+              <StyledTableCell align="right">Description</StyledTableCell>
+              <StyledTableCell align="right">Date</StyledTableCell>
+            </TableRow>
+          </TableHead>
 
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell />
-            <StyledTableCell align="center">Event</StyledTableCell>
-            <StyledTableCell align="right">Description</StyledTableCell>
-            <StyledTableCell align="right">Date</StyledTableCell>
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {events.map((event) => (
-            <TableRowEvent key={`${event.createdAt}-${event.eventName}`} event={event} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          <TableBody>
+            {events.map((event) => (
+              <TableRowEvent key={`${event.createdAt}-${event.eventName}`} event={event} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 
@@ -112,7 +116,7 @@ function TableRowEvent(props: { event: TrackingEventDto }) {
         <TableCell align="right" component="th" scope="row">
           {event.description}
         </TableCell>
-        <TableCell align="right">{event.createdAt}</TableCell>
+        <TableCell align="right">{moment(event.createdAt).fromNow()}</TableCell>
       </TableRow>
       {showEventDetails && (
         <TableRow sx={{ backgroundColor: 'grey.200' }}>
