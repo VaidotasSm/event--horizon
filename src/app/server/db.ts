@@ -71,8 +71,11 @@ async function seedTestData() {
       eventName: 'create',
       description: 'Create transaction',
       createdAt: '2024-09-05T12:00:00.000Z',
-      relatedObjects: [{ id: 'item-1', objectType: 'item' }],
-      objectChanges: { amount: 5, items: 1, approved: false },
+      relatedObjects: [{id: '1444', objectType: 'Order Number' },
+                       {id: 'Product #1', objectType: 'Order Item' }
+
+      ],
+      objectChanges: { Amount: 5, Items: 1, Approved: false },
     },
     {
       id: '1001',
@@ -81,10 +84,10 @@ async function seedTestData() {
       description: 'Edit of transaction',
       createdAt: '2024-09-05T12:10:00.000Z',
       relatedObjects: [
-        { id: 'item-2', objectType: 'item' },
-        { id: 'item-3', objectType: 'item' },
+        { id: 'Product #2', objectType: 'Order Item' },
+        { id: 'Product #3', objectType: 'Order Item' },
       ],
-      objectChanges: { amount: 15, items: 3, approved: false },
+      objectChanges: { Amount: 15, Items: 3, Approved: false },
     },
     {
       id: '1001',
@@ -92,8 +95,8 @@ async function seedTestData() {
       eventName: 'edit',
       description: 'Edit of transaction',
       createdAt: '2024-09-05T12:14:00.000Z',
-      relatedObjects: [{ id: 'item-4', objectType: 'item' }],
-      objectChanges: { amount: 20, items: 4, approved: false },
+      relatedObjects: [{ id: 'Product #4', objectType: 'item' }],
+      objectChanges: { Amount: 20, items: 4, approved: false },
     },
     {
       id: '1001',
@@ -101,7 +104,7 @@ async function seedTestData() {
       eventName: 'authorization',
       description: 'Transaction Authorization',
       createdAt: '2024-09-05T12:20:00.000Z',
-      relatedObjects: [{ id: 'user-approver-1', objectType: 'user' }],
+      relatedObjects: [{ id: 'User-approver 1', objectType: 'user' }],
       objectChanges: { approved: true },
     },
     {
@@ -110,8 +113,8 @@ async function seedTestData() {
       eventName: 'batch-close',
       description: 'Close Batch',
       createdAt: '2024-09-05T12:30:00.000Z',
-      relatedObjects: [{ id: 'batch-1', objectType: 'batch' }],
-      objectChanges: { settled: true },
+      relatedObjects: [{ id: 'Batch #1', objectType: 'Batch' }],
+      objectChanges: { Settled: true },
     },
   ];
 
